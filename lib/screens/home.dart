@@ -1,3 +1,5 @@
+import 'package:aunshowshim/screens/my_style.dart';
+import 'package:aunshowshim/screens/register.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -23,7 +25,7 @@ class _HomeState extends State<Home> {
       "Kai Jeaw",
       style: TextStyle(
         fontSize: 30.0,
-        color: Colors.orange.shade300,
+        color: MyStyle().textColor,
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.italic,
         fontFamily: "Oxygen",
@@ -33,7 +35,7 @@ class _HomeState extends State<Home> {
 
   Widget signInButton() {
     return RaisedButton(
-      color: Colors.orange.shade300,
+      color: MyStyle().textColor,
       child: Text(
         "Sign In",
         style: TextStyle(color: Colors.white),
@@ -45,7 +47,13 @@ class _HomeState extends State<Home> {
   Widget signUpButton() {
     return OutlineButton(
       child: Text("Sign Up"),
-      onPressed: () {},
+      onPressed: () {
+        print("U CLICK Sing Up");
+
+        MaterialPageRoute materialPageRoute = MaterialPageRoute(builder: (BuildContext context) => Register());
+        Navigator.of(context).push(materialPageRoute);
+
+      },
     );
   }
 
