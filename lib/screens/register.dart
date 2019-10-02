@@ -8,13 +8,18 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   // Explicit
+  String name, email, password;
+  final formKey = GlobalKey<FormState>();
 
   // Method
   Widget registerButton() {
     return IconButton(
       icon: Icon(Icons.cloud_upload),
       tooltip: "Upload Value to my Database",
-      onPressed: () {},
+      onPressed: () {
+        formKey.currentState.save();
+        print("name = $name, email = $email, password = $password");
+      },
     );
   }
 
@@ -28,11 +33,15 @@ class _RegisterState extends State<Register> {
         labelText: "Display Name :",
         helperText: "Type Your Name",
       ),
+      onSaved: (String value) {
+        name = value.trim();
+      },
     );
   }
 
   Widget emailText() {
-    return TextFormField(keyboardType: TextInputType.emailAddress,
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         icon: Icon(
           Icons.email,
@@ -41,6 +50,9 @@ class _RegisterState extends State<Register> {
         labelText: "Email :",
         helperText: "Type Your Email",
       ),
+      onSaved: (String value) {
+        email = value.trim();
+      },
     );
   }
 
@@ -54,6 +66,9 @@ class _RegisterState extends State<Register> {
         labelText: "Password :",
         helperText: "Type Your Password",
       ),
+      onSaved: (String value) {
+        password = value.trim();
+      },
     );
   }
 
@@ -65,13 +80,16 @@ class _RegisterState extends State<Register> {
         title: Text("Register"),
         actions: <Widget>[registerButton()],
       ),
-      body: ListView(
-        padding: EdgeInsets.all(40.0),
-        children: <Widget>[
-          nameText(),
-          emailText(),
-          passwordText(),
-        ],
+      body: Form(
+        key: formKey,
+        child: ListView(
+          padding: EdgeInsets.all(40.0),
+          children: <Widget>[
+            nameText(),
+            emailText(),
+            passwordText(),
+          ],
+        ),
       ),
     );
   }
